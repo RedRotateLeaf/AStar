@@ -8,57 +8,74 @@ class PlayerRoot extends egret.DisplayObjectContainer {
 		this.Player = new egret.Bitmap();
 		this.Player.width = 64;
 		this.Player.height = 64;
-		this.Player.x = 0;
-		this.Player.y = 0;
 		this.Player.texture = RES.getRes("bg_jpg");
 		this.PlayerX = 0;
         this.PlayerY = 0;
+		this.walkable = false;
 		this.addChild(this.Player);
+
 	}
 	public Action(e: egret.TouchEvent): void {
+		
 		var PlayerTween = egret.Tween.get(this.Player);
-		var localX = e.localX;
-		var localY = e.localY;
-		var gridX = Math.floor(localX / TileMap.TILE_SIZE);
-		var gridY = Math.floor(localY / TileMap.TILE_SIZE);
-		var NewGrid = new Grid(10, 11);
-		            console.log("ismove:  ");
-		for (var i = 0; i < config.length; i++) {
+            var localX = e.localX;
+            var localY = e.localY;
+            var gridX = Math.floor(localX / TileMap.TILE_SIZE);
+            var gridY = Math.floor(localY / TileMap.TILE_SIZE);
 
-			NewGrid.setWalkable(config[i].x, config[i].y, config[i].walkable);
-		}
+            //生成与地图对应的各个节点
+            var grid = new Grid(10, 10);
 
-		var aStar: AStar = new AStar();
-		NewGrid.setStartNode(this.PlayerX, this.PlayerY);
-		NewGrid.setEndNode(gridX, gridY);
+            for (var i = 0; i < config.length; i++) {
 
-		//有路
-		if (aStar.findPath(NewGrid)) {
+                grid.setWalkable(config[i].x, config[i].y, config[i].walkable);
+            }
 
-			var path = aStar._path;
+            var aStar: AStar = new AStar();
+            grid.setStartNode(this.PlayerX, this.PlayerY);
+            grid.setEndNode(gridX, gridY);
 
-			if (!this.walkable) {
+            //有路
+            if (aStar.findPath(grid)) {
 
-				for (var i = 0; i < path.length; i++) {
+                var path = aStar._path;
 
-					this.walkable = true;
+                if (!this.walkable) {
 
-					this.PlayerX = gridX;
-					this.PlayerY = gridY;
+                    for (var i = 0; i < path.length; i++) {
+
+                        this.walkable = true;
+
+                        this.PlayerX = gridX;
+                        this.PlayerY = gridY;
 
 
-					PlayerTween.to({ x: path[i].x * TileMap.TILE_SIZE, y: path[i].y * TileMap.TILE_SIZE }, 500, egret.Ease.sineIn)
-						.call(function () {
-							if (Math.abs(this.Player.x - (gridX * TileMap.TILE_SIZE)) < 10 && Math.abs(this.Player.y - (gridY * TileMap.TILE_SIZE)) < 10) {
-								this.walkable = false;
-							}
-						});
-				}
-			} else {
+                        PlayerTween.to({ x: path[i].x * TileMap.TILE_SIZE, y: path[i].y * TileMap.TILE_SIZE }, 500, egret.Ease.sineIn)
+                            .call(function () {
 
-				egret.Tween.removeTweens(PlayerTween);
-				this.walkable = false;
-			}
-		}
+                                if (Math.abs(this.Player.x - (gridX * TileMap.TILE_SIZE)) < 10 && Math.abs(this.Player.y - (gridY * TileMap.TILE_SIZE)) < 10) {
+
+                                    console.log("到达目的地");
+                                    this.walkable = false;
+                                }
+
+                            });
+
+                    }
+
+                } else {
+
+                    egret.Tween.removeTweens(PlayerTween);
+                    console.log("remove");
+                    this.walkable = false;
+
+
+                }
+            } else {
+
+                console.log("无法到达");
+            }
+
+			
 	}
 }

@@ -119,8 +119,8 @@ class Main extends egret.DisplayObjectContainer {
     private createGameScene(): void {
         var Background = new TileMap();
         this.addChild(Background);
-        var stageW: number = this.stage.stageWidth;
-        var stageH: number = this.stage.stageHeight;
+        // var stageW: number = this.stage.stageWidth;
+        // var stageH: number = this.stage.stageHeight;
         // var Player = new egret.Bitmap();
 		// Player.width = 64;
 		// Player.height = 64;

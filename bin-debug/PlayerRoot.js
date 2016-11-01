@@ -5,11 +5,10 @@ var PlayerRoot = (function (_super) {
         this.Player = new egret.Bitmap();
         this.Player.width = 64;
         this.Player.height = 64;
-        this.Player.x = 0;
-        this.Player.y = 0;
         this.Player.texture = RES.getRes("bg_jpg");
         this.PlayerX = 0;
         this.PlayerY = 0;
+        this.walkable = false;
         this.addChild(this.Player);
     }
     var d = __define,c=PlayerRoot,p=c.prototype;
@@ -19,16 +18,16 @@ var PlayerRoot = (function (_super) {
         var localY = e.localY;
         var gridX = Math.floor(localX / TileMap.TILE_SIZE);
         var gridY = Math.floor(localY / TileMap.TILE_SIZE);
-        var NewGrid = new Grid(10, 11);
-        console.log("ismove:  ");
+        //生成与地图对应的各个节点
+        var grid = new Grid(10, 10);
         for (var i = 0; i < config.length; i++) {
-            NewGrid.setWalkable(config[i].x, config[i].y, config[i].walkable);
+            grid.setWalkable(config[i].x, config[i].y, config[i].walkable);
         }
         var aStar = new AStar();
-        NewGrid.setStartNode(this.PlayerX, this.PlayerY);
-        NewGrid.setEndNode(gridX, gridY);
+        grid.setStartNode(this.PlayerX, this.PlayerY);
+        grid.setEndNode(gridX, gridY);
         //有路
-        if (aStar.findPath(NewGrid)) {
+        if (aStar.findPath(grid)) {
             var path = aStar._path;
             if (!this.walkable) {
                 for (var i = 0; i < path.length; i++) {
@@ -38,6 +37,7 @@ var PlayerRoot = (function (_super) {
                     PlayerTween.to({ x: path[i].x * TileMap.TILE_SIZE, y: path[i].y * TileMap.TILE_SIZE }, 500, egret.Ease.sineIn)
                         .call(function () {
                         if (Math.abs(this.Player.x - (gridX * TileMap.TILE_SIZE)) < 10 && Math.abs(this.Player.y - (gridY * TileMap.TILE_SIZE)) < 10) {
+                            console.log("到达目的地");
                             this.walkable = false;
                         }
                     });
@@ -45,8 +45,12 @@ var PlayerRoot = (function (_super) {
             }
             else {
                 egret.Tween.removeTweens(PlayerTween);
+                console.log("remove");
                 this.walkable = false;
             }
+        }
+        else {
+            console.log("无法到达");
         }
     };
     return PlayerRoot;

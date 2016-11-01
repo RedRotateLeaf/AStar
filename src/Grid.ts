@@ -16,85 +16,73 @@ class Node_G {
     }
 
 }
-class Grid {
-	_startNode: Node_G;
-	_endNode: Node_G;
-	_nodes;
-	_numCols: number;
-	_numRows: number;
 
-	public constructor(numCols: number, numRows: number) {
-		this._numCols = numCols;
-		this._numRows = numRows;
-		this._nodes = new Array();
-		for (var i: number = 0; i < this._numCols; i++) {
-			this._nodes[i] = new Array();
-			for (var j: number = 0; j < this._numRows; j++) {
-				this._nodes[i][j] = new Node_G(i, j);
-			}
-		}
-	}
-	////////////////////////////////////////
-	// public methods
-	////////////////////////////////////////
-	/**
-	* Returns the node at the given coords.
-	* @param x The x coord.
-	* @param y The y coord.
-	*/
-	public getNode(x: number, y: number): Node_G {
-		return this._nodes[x][y] as Node_G;
-	}
-	/**
-	* Sets the node at the given coords as the end node.
-	* @param x The x coord.
-	* @param y The y coord.
-	*/
-	public setEndNode(x: number, y: number): void {
-		this._endNode = this._nodes[x][y] as Node_G;
-	}
-	/**
-	* Sets the node at the given coords as the start node.
-	* @param x The x coord.
-	* @param y The y coord.
-	*/
-	public setStartNode(x: number, y: number): void {
-		this._startNode = this._nodes[x][y] as Node_G;
-	}
-	
-	/**
-	* Sets the node at the given coords as walkable or not.
-	* @param x The x coord.
-	* @param y The y coord.
-	*/
-	public setWalkable(x: number, y: number, value: Boolean): void {
-		this._nodes[x][y].walkable = value;
-	}
-	////////////////////////////////////////
-	// getters / setters
-	////////////////////////////////////////
-	/**
-	* Returns the end node.
-	*/
-	public get endNode(): Node_G {
-		return this._endNode;
-	}
-	/**
-	* Returns the number of columns in the grid.
-	*/
-	public get numCols(): number {
-		return this._numCols;
-	}
-	/**
-	* Returns the number of rows in the grid.
-	*/
-	public get numRows(): number {
-		return this._numRows;
-	}
-	/**
-	* Returns the start node.
-	*/
-	public get startNode(): Node_G {
-		return this._startNode;
-	}
+//整个网格，控制所有的节点
+class Grid {
+
+    public _startNode : Node_G;
+    public _endNode : Node_G;
+    public _nodes;
+    public _numCols : number;
+    public _numRows : number;
+
+    public constructor(numCols:number,numRows:number) {
+
+        this._numCols = numCols;
+        this._numRows = numRows;
+        this._nodes = new Array();
+
+        for(var i = 0; i < this._numCols; i++) {
+
+            this._nodes[i] =  new Array();
+
+            for(var j = 0; j < this._numRows; j++) {
+                
+                this._nodes[i][j] = new Node_G(i,j);
+            }
+        }
+    }
+
+
+    public getNode(x:number,y:number) : Node_G {
+
+        return this._nodes[x][y] as Node_G;
+    }
+
+    public setEndNode(x:number,y:number):void {
+
+        this._endNode = this._nodes[x][y] as Node_G; 
+    }
+
+    public getEndNode():Node_G {
+
+        return this._endNode;
+    }
+
+    public setStartNode(x:number,y:number):void {
+
+        this._startNode = this._nodes[x][y] as Node_G;
+    }
+
+    public getStartNode():Node_G {
+
+        return this._startNode;
+    }
+
+    public setWalkable(x:number,y:number,value:boolean) {
+
+        this._nodes[x][y].walkable = value;
+    }
+
+    public getNumCols():number {
+
+        return this._numCols;
+    }
+
+    public getNumRows():number {
+
+        return this._numRows;
+    }
+
 }
+
