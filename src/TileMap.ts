@@ -125,96 +125,12 @@ class TileMap extends egret.DisplayObjectContainer {
             var tile = new Tile(data);
             this.addChild(tile);
         }
-        // var player = new egret.Bitmap();
-        // var playerX = 0;
-        // var playerY = 0;
-        // // var move = false;
-        // player.width = 64;
-        // player.height = 64;
-        // player.texture = RES.getRes("bg_jpg");
-        // this.addChild(player);
-        // var playerTween;
-        var xxx:PlayerZ = new PlayerZ();
-        this.addChild(xxx);
+        var PlayerA:PlayerRoot = new PlayerRoot();
+        this.addChild(PlayerA);
         this.touchEnabled = true;
-        this.addEventListener(egret.TouchEvent.TOUCH_TAP,xxx.Action(),this);
-        
-        // this.addEventListener(egret.TouchEvent.TOUCH_TAP, function (e: egret.TouchEvent) {
-
-            // playerTween = egret.Tween.get(player);
-
-            // console.log("ismove:  " + move);
-
-            // var localX = e.localX;
-            // var localY = e.localY;
-            // var gridX = Math.floor(localX / TileMap.TILE_SIZE);
-            // var gridY = Math.floor(localY / TileMap.TILE_SIZE);
-
-            // //生成与地图对应的各个节点
-            // var grid = new Grid(10, 10);
-
-            // for (var i = 0; i < config.length; i++) {
-
-            //     grid.setWalkable(config[i].x, config[i].y, config[i].walkable);
-            // }
-
-            // var aStar: AStar = new AStar();
-            // grid.setStartNode(playerX, playerY);
-            // grid.setEndNode(gridX, gridY);
-
-            // //有路
-            // if (aStar.findPath(grid)) {
-
-            //     var path = aStar._path;
-
-            //     if (!move) {
-
-            //         for (var i = 0; i < path.length; i++) {
-
-            //             move = true;
-
-            //             playerX = gridX;
-            //             playerY = gridY;
-
-
-            //             playerTween.to({ x: path[i].x * TileMap.TILE_SIZE, y: path[i].y * TileMap.TILE_SIZE }, 500, egret.Ease.sineIn)
-            //                 .call(function () {
-
-            //                     if (Math.abs(player.x - (gridX * TileMap.TILE_SIZE)) < 10 && Math.abs(player.y - (gridY * TileMap.TILE_SIZE)) < 10) {
-
-            //                         console.log("到达目的地");
-            //                         move = false;
-            //                     }
-
-            //                 });
-
-            //         }
-
-            //     } else {
-
-            //         egret.Tween.removeTweens(playerTween);
-            //         console.log("remove");
-            //         move = false;
-
-
-            //     }
-            // } else {
-
-            //     console.log("无法到达");
-            // }
-
-
-
-
-        // }, this);
-        // this.touchEnabled = true;
-        // var APlayer = new PlayerRoot();
-        // this.addChild(APlayer);
-        // this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.PlayerAction(APlayer), this);
+        this.addEventListener(egret.TouchEvent.TOUCH_TAP,PlayerA.Action,PlayerA);
     }
-    // private PlayerAction(A: PlayerRoot): Function {
-    // 	return A.Action;
-    // }
+
 }
 
 interface TileData {
@@ -232,8 +148,8 @@ class Tile extends egret.DisplayObjectContainer {
     constructor(data: TileData) {
         super();
         this.Tile_data = data;
-        // this.Tile_data.x = data.x * TileMap.TILE_SIZE;
-        // this.Tile_data.y = data.y * TileMap.TILE_SIZE;
+        // this.Tile_data.x = data.x * TileMap.TILE_SIZE;//???
+        // this.Tile_data.y = data.y * TileMap.TILE_SIZE;//???
         this.x = data.x * TileMap.TILE_SIZE;
         this.y = data.y * TileMap.TILE_SIZE;
 

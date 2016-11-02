@@ -1,7 +1,4 @@
 class AStar {
-	// _open: Node_G[] = [];
-	// _closed: Node_G[] = [];
-	// _path: Node_G[] = [];
     _open = new Array();
     _closed = new Array();
     _grid: Grid;
@@ -34,7 +31,7 @@ class AStar {
             var endY: number = Math.min(this._grid._numRows - 1, Search_node.y + 1);
             for (var i: number = startX; i <= endX; i++) {
                 for (var j: number = startY; j <= endY; j++) {
-                    var test: Node_G = this._grid._nodes[i][j];//(i,j)
+                    var test: Node_G = this._grid._nodes[i][j];//(i,j)?
                     if (test == Search_node || !test.walkable || !this._grid._nodes[Search_node.x][test.y].walkable || !this._grid._nodes[test.x][Search_node.y].walkable) {
                         continue;
                     }

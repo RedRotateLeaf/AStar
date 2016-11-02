@@ -103,15 +103,6 @@ var Main = (function (_super) {
     p.createGameScene = function () {
         var Background = new TileMap();
         this.addChild(Background);
-        // var stageW: number = this.stage.stageWidth;
-        // var stageH: number = this.stage.stageHeight;
-        // var Player = new egret.Bitmap();
-        // Player.width = 64;
-        // Player.height = 64;
-        // Player.texture = RES.getRes("bg_jpg");
-        // Player.x = 0;
-        // Player.y = 0;
-        // this.addChild(Player);
     };
     /**
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。

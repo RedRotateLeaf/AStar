@@ -13,7 +13,6 @@ var game_file_list = [
 	"bin-debug/LoadingUI.js",
 	"bin-debug/Main.js",
 	"bin-debug/PlayerRoot.js",
-	"bin-debug/PlayerZ.js",
 	"bin-debug/TileMap.js",
 	//----auto game_file_list end----
 ];

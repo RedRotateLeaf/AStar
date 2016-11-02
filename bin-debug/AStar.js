@@ -1,8 +1,5 @@
 var AStar = (function () {
     function AStar() {
-        // _open: Node_G[] = [];
-        // _closed: Node_G[] = [];
-        // _path: Node_G[] = [];
         this._open = new Array();
         this._closed = new Array();
         this._path = new Array;
@@ -33,7 +30,7 @@ var AStar = (function () {
             var endY = Math.min(this._grid._numRows - 1, Search_node.y + 1);
             for (var i = startX; i <= endX; i++) {
                 for (var j = startY; j <= endY; j++) {
-                    var test = this._grid._nodes[i][j]; //(i,j)
+                    var test = this._grid._nodes[i][j]; //(i,j)?
                     if (test == Search_node || !test.walkable || !this._grid._nodes[Search_node.x][test.y].walkable || !this._grid._nodes[test.x][Search_node.y].walkable) {
                         continue;
                     }
