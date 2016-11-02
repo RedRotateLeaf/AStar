@@ -1,6 +1,6 @@
 var config = [
     { x: 0, y: 0, walkable: true, image: "Road_png" },
-    { x: 1, y: 0, walkable: false, image: "Wall_png" },
+    { x: 1, y: 0, walkable: true, image: "Road_png" },
     { x: 2, y: 0, walkable: true, image: "Road_png" },
     { x: 3, y: 0, walkable: true, image: "Road_png" },
     { x: 4, y: 0, walkable: true, image: "Road_png" },
